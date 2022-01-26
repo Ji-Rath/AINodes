@@ -1,0 +1,29 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "BattleAINodes",
+	"Description": "A collection of useful AI nodes for Behavior Tree",
+	"Category": "Other",
+	"CreatedBy": "Gareth Aguilar",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": true,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"name": "SoldierAI",
+			"type": "Runtime",
+			"loadingPhase": "Default"
+		},
+		{
+			"name": "BasicNodes",
+			"type": "Runtime",
+			"loadingPhase": "Default"
+		}
+	]
+}
