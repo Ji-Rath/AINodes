@@ -27,9 +27,8 @@ public:
 	UBTTask_GetSplinePosition();
 
 private:
+	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 
-	EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
-
-	void InitializeFromAsset(UBehaviorTree& Asset) override;
+	virtual void InitializeFromAsset(UBehaviorTree& Asset) override;
 
 };
