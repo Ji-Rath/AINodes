@@ -6,3 +6,4 @@
  - BTTask_SetWalkSpeed
  - Custom Perception component with callable ExpiredStimulus delegate
  - SmoothLookAt function
+ - Patrol BTTasks based on spline component
