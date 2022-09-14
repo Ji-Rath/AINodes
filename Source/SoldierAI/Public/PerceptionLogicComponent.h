@@ -10,8 +10,8 @@
 class UAIPerceptionComponent;
 class UBlackboardComponent;
 
-UENUM()
-enum EEnemyState
+UENUM(BlueprintType)
+enum class EEnemyState : uint8
 {
 	Idle,
 	Searching,
@@ -52,7 +52,7 @@ public:
 
 	/** The current state of the enemy */
 	UPROPERTY(VisibleAnywhere, Category = "AI")
-	TEnumAsByte<EEnemyState> EnemyState;
+	EEnemyState EnemyState;
 
 	/** String reference to BB Vector. Intended to guide AI to stimulus */
 	UPROPERTY(EditDefaultsOnly, Category = "AI|Blackboard")

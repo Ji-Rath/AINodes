@@ -16,14 +16,14 @@
 	"Installed": false,
 	"Modules": [
 		{
-			"name": "SoldierAI",
-			"type": "Runtime",
-			"loadingPhase": "Default"
+			"Name": "SoldierAI",
+			"Type": "Runtime",
+			"LoadingPhase" : "PreDefault"
 		},
 		{
-			"name": "BasicNodes",
-			"type": "Runtime",
-			"loadingPhase": "Default"
+			"Name": "BasicNodes",
+			"Type": "Runtime",
+			"LoadingPhase" : "PreDefault"
 		}
 	]
 }

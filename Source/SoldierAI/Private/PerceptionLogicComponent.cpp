@@ -9,6 +9,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Perception/AISense_Team.h"
 #include "GenericTeamAgentInterface.h"
+#include "TimerManager.h"
 
 
 void UPerceptionLogicComponent::BeginPlay()
@@ -59,10 +60,10 @@ void UPerceptionLogicComponent::HearingUpdated(AActor* Actor, FAIStimulus& Stimu
 {
 	if (!BlackboardComponent) { return; }
 
-	if (EnemyState == Idle || EnemyState == Searching)
+	if (EnemyState == EEnemyState::Idle || EnemyState == EEnemyState::Searching)
 	{
 		/** Investigate stimulus location if not chasing the player already */
-		SetState(Searching);
+		SetState(EEnemyState::Searching);
 		GetBlackboardComponent()->SetValueAsVector(BBDestination, Stimulus.StimulusLocation);
 		GetBlackboardComponent()->SetValueAsVector(BBSearchLocation, Stimulus.StimulusLocation);
 	}
@@ -80,7 +81,7 @@ void UPerceptionLogicComponent::SightUpdated(FAIStimulus& Stimulus, AActor* Acto
 		if (Stimulus.WasSuccessfullySensed())
 		{
 			PlayerReference = Actor;
-			SetState(Chasing);
+			SetState(EEnemyState::Chasing);
 			GetBlackboardComponent()->SetValueAsObject(BBPlayerReference, PlayerReference);
 
 			// Clear timer that would cause the enemy to automatically search
@@ -101,7 +102,7 @@ void UPerceptionLogicComponent::SightUpdated(FAIStimulus& Stimulus, AActor* Acto
 		{
 			/* If the stimulus was 'lost', set a timer to begin searching */
 			FTimerDelegate TimerDelegate;
-			TimerDelegate.BindUFunction(this, FName("SetState"), Searching);
+			TimerDelegate.BindUFunction(this, FName("SetState"), EEnemyState::Searching);
 			GetWorld()->GetTimerManager().SetTimer(ForgetTargetTimer, TimerDelegate, ForgetTargetTime, false);
 		}
 	}
@@ -150,7 +151,7 @@ void UPerceptionLogicComponent::SetState(EEnemyState NewState)
 	EnemyState = NewState;
 	GetBlackboardComponent()->SetValueAsEnum(BBEnemyState, (uint8) EnemyState);
 
-	if (NewState == Searching)
+	if (NewState == EEnemyState::Searching)
 	{
 		/* Update search location to be on player (kinda cheating) */
 		if (PlayerReference)
@@ -161,7 +162,7 @@ void UPerceptionLogicComponent::SetState(EEnemyState NewState)
 		
 		/* Give up searching after set time */
 		FTimerDelegate TimerDelegate;
-		TimerDelegate.BindUFunction(this, FName("SetState"), Idle);
+		TimerDelegate.BindUFunction(this, FName("SetState"), EEnemyState::Idle);
 		GetWorld()->GetTimerManager().SetTimer(ForgetTargetTimer, TimerDelegate, StopSearchingTime, false);
 
 		/**
