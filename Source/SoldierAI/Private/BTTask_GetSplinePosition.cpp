@@ -36,7 +36,7 @@ EBTNodeResult::Type UBTTask_GetSplinePosition::ExecuteTask(UBehaviorTreeComponen
 
 	const int32 IndexValue = Blackboard->GetValueAsInt(PatrolIndex.SelectedKeyName);
 
-	if (ensureMsgf(Spline, TEXT("Error in task %s: Cannot fetch spline component or there are no valid points!")))
+	if (ensureMsgf(Spline, TEXT("Error in task %s: Cannot fetch spline component or there are no valid points!"), *NodeName))
 	{
 		int32 SplinePointCount = Spline->GetNumberOfSplinePoints();
 
